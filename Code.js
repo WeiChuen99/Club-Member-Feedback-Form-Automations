@@ -32,7 +32,6 @@ function sendTonightsFeedback() {
 
   var colTimestamp = col("Timestamp");
   var colSpeaker = col("Speaker Name");
-  var colEvaluator = col("Evaluator Name");
   var colLiked = col("What did you like about the speech?");
   var colImprove = col("What can the speaker do to make the speech even better?");
   var colSent = col(SENT_COLUMN);
@@ -62,7 +61,6 @@ function sendTonightsFeedback() {
       rowsBySpeaker[key] = [];
     }
     bySpeaker[key].feedback.push({
-      evaluator: row[colEvaluator] ? row[colEvaluator].toString().trim() : "",
       liked: row[colLiked] ? row[colLiked].toString().trim() : "",
       improve: row[colImprove] ? row[colImprove].toString().trim() : ""
     });
@@ -92,7 +90,7 @@ function sendTonightsFeedback() {
 
     speaker.feedback.forEach(function(f, n) {
       body += "\n--------------------------------------------------\n" +
-        "Feedback " + (n + 1) + " - from " + (f.evaluator || "Anonymous") + "\n\n";
+        "Feedback " + (n + 1) + "\n\n";
       if (f.liked) body += "What they liked:\n" + f.liked + "\n\n";
       if (f.improve) body += "Suggestions to make it even better:\n" + f.improve + "\n";
       if (!f.liked && !f.improve) body += "(No written feedback)\n";
